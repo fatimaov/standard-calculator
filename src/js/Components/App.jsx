@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 
 import Addition from "./Addition"
 import Clear from "./Clear"
@@ -26,11 +26,11 @@ function App() {
     console.log("result", result)
 
     // Number
-    function handleNumberClick(e) {
+    function handleNumberClick(digit) {
         if (result !== 0) {
-            setResult(null)
+            setResult(() => null)
         }
-        setCurrentValue(Number(currentValue + e.target.value))
+        setCurrentValue(prev => typeof digit !== 'string' ? Number(prev + digit.target.value) : Number(prev + digit))
     }
 
     // Decimal
@@ -38,45 +38,45 @@ function App() {
         if (!Number.isInteger(currentValue)) {
             return;
         }
-        setCurrentValue((currentValue.toString()) + ".");
+        setCurrentValue(() => (currentValue.toString()) + ".");
     }
 
     // Addition 
     function handleAdditionClick() {
-        typeof currentValue === 'string' ? setPreviousValue(Number(currentValue)) : setPreviousValue(currentValue);
+        typeof currentValue === 'string' ? setPreviousValue(() => Number(currentValue)) : setPreviousValue(() => currentValue);
         setOperation(() => operationHandlers.addition);
-        setCurrentValue('');
+        setCurrentValue(() => '');
     }
 
     // Subtraction
-    function handleSubtractionClick(e) {
+    function handleSubtractionClick() {
         if (!currentValue && !previousValue || operation && !currentValue) {
-            return setCurrentValue(e.target.textContent)
+            return setCurrentValue(() => '-')
         }
-        typeof currentValue === 'string' ? setPreviousValue(Number(currentValue)) : setPreviousValue(currentValue);
+        typeof currentValue === 'string' ? setPreviousValue(() => Number(currentValue)) : setPreviousValue(() => currentValue);
         setOperation(() => operationHandlers.subtraction)
-        setCurrentValue('')
+        setCurrentValue(() => '')
     }
 
     // Multiplication
     function handleMultiplicationClick() {
-        typeof currentValue === 'string' ? setPreviousValue(Number(currentValue)) : setPreviousValue(currentValue);
+        typeof currentValue === 'string' ? setPreviousValue(() => Number(currentValue)) : setPreviousValue(() => currentValue);
         setOperation(() => operationHandlers.multiplication)
-        setCurrentValue('')
+        setCurrentValue(() => '')
     }
 
     // Division
     function handleDivisionClick() {
-        typeof currentValue === 'string' ? setPreviousValue(Number(currentValue)) : setPreviousValue(currentValue);
+        typeof currentValue === 'string' ? setPreviousValue(() => Number(currentValue)) : setPreviousValue(() => currentValue);
         setOperation(() => operationHandlers.division)
-        setCurrentValue('')
+        setCurrentValue(() => '')
     }
 
     // Modulus
     function handleModulusClick() {
-        typeof currentValue === 'string' ? setPreviousValue(Number(currentValue)) : setPreviousValue(currentValue);
+        typeof currentValue === 'string' ? setPreviousValue(() => Number(currentValue)) : setPreviousValue(() => currentValue);
         setOperation(() => operationHandlers.modulus)
-        setCurrentValue('')
+        setCurrentValue(() => '')
     }
 
     // Clear
@@ -87,14 +87,14 @@ function App() {
                 .split('')
                 .filter((_, i, arr) => i !== (arr.length - 1));
 
-        !clearResultArr[(clearResultArr.indexOf('.') + 1)] ? setCurrentValue(clearResultArr.join('')) : setCurrentValue(Number(clearResultArr.join('')));
+        !clearResultArr[(clearResultArr.indexOf('.') + 1)] ? setCurrentValue(() => clearResultArr.join('')) : setCurrentValue(() => Number(clearResultArr.join('')));
     }
 
     // Clear All
     function handleClearAllClick() {
-        setCurrentValue('')
-        setPreviousValue(null)
-        setResult(null)
+        setCurrentValue(() => '')
+        setPreviousValue(() => null)
+        setResult(() => null)
     }
 
     // Equals
@@ -104,14 +104,56 @@ function App() {
         }
 
         if (currentValue && !previousValue) {
-            setResult(typeof currentValue === 'string' ? Number(currentValue) : currentValue)
+            setResult(() => typeof currentValue === 'string' ? Number(currentValue) : currentValue)
             return;
         }
 
-        setResult(operation(previousValue, typeof currentValue === 'string' ? Number(currentValue) : currentValue))
-        setCurrentValue('')
-        setPreviousValue(null)
+        setResult(() => operation(previousValue, typeof currentValue === 'string' ? Number(currentValue) : currentValue))
+        setCurrentValue(() => '')
+        setPreviousValue(() => null)
     }
+
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            console.log(e.key)
+            if (e.key.match(/\d/)) {
+                handleNumberClick(e.key);
+            }
+            switch (e.key) {
+                case '+':
+                    handleAdditionClick();
+                    break;
+                case '-':
+                    handleSubtractionClick();
+                    break;
+                case '/':
+                    handleDivisionClick();
+                    break;
+                case '*':
+                    handleMultiplicationClick();
+                    break;
+                case '%':
+                    handleModulusClick();
+                    break;
+                case '.':
+                    handleDecimalClick();
+                    break;
+                case 'Enter':
+                    handleEqualsClick();
+                    break;
+                case 'Backspace':
+                    handleClearClick();
+                    break;
+                case 'Escape':
+                    handleClearAllClick();
+                    break;
+            }
+        }
+
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener("keydown", handleKeyDown);
+    }, [currentValue, previousValue, operation, result])
+
 
     return (
         <>
