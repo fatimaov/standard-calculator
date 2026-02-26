@@ -108,6 +108,7 @@ function App() {
 
         if (currentValue && !previousValue) {
             setResult(() => typeof currentValue === 'string' ? Number(currentValue) : currentValue)
+            setCurrentValue(() => '')
             return;
         }
 
@@ -118,7 +119,7 @@ function App() {
 
     useEffect(() => {
         const handleKeyDown = (e) => {
-            console.log(e.key)
+            console.log("use effect", currentValue)
             if (e.key.match(/\d/)) {
                 handleNumberClick(e.key);
             }
@@ -155,7 +156,7 @@ function App() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     }, [currentValue, previousValue, operation, result])
 
 
