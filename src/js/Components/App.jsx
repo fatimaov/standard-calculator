@@ -12,6 +12,8 @@ import Modulus from "./Modulus"
 import Multiplication from "./Multiplication"
 import Subtraction from "./Subtraction"
 
+import operationHandlers from "../arithmeticOperations"
+
 
 function App() {
     const [currentValue, setCurrentValue] = useState(0)
