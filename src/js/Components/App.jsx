@@ -30,6 +30,9 @@ function App() {
         if (result !== 0) {
             setResult(() => null)
         }
+        if (currentValue.toString().length >= 10) {
+            return;
+        }
         setCurrentValue(prev => typeof digit !== 'string' ? Number(prev + digit.target.value) : Number(prev + digit))
     }
 
@@ -152,6 +155,7 @@ function App() {
 
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentValue, previousValue, operation, result])
 
 
