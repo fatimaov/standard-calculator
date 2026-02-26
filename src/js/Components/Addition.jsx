@@ -1,8 +1,8 @@
-function Addition() {
+function Addition({ onAdditionClick }) {
     return (
         <>
             <div className="col">
-                <button className="btn btn-primary">+</button>
+                <button className="btn btn-primary" onClick={onAdditionClick}>+</button>
             </div>
         </>
     )
