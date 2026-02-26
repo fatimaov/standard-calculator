@@ -1,3 +1,5 @@
+import { useState } from "react"
+
 import Addition from "./Addition"
 import Clear from "./Clear"
 import ClearAll from "./ClearAll"
@@ -12,6 +14,14 @@ import Subtraction from "./Subtraction"
 
 
 function App() {
+    const [currentValue, setCurrentValue] = useState(0)
+	console.log("currentValue", currentValue)
+	const [previousValue, setPreviousValue] = useState(null)
+	console.log("previousValue", previousValue)
+	const [operation, setOperation] = useState(null)
+	console.log("operation", operation)
+	const [result, setResult] = useState(null)
+	console.log("result", result)
 
     return (
         <>
