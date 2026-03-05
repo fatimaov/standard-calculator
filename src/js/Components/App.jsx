@@ -17,13 +17,9 @@ import operationHandlers from "../arithmeticOperations"
 
 function App() {
     const [currentValue, setCurrentValue] = useState(0)
-    console.log("currentValue", currentValue)
     const [previousValue, setPreviousValue] = useState(null)
-    console.log("previousValue", previousValue)
     const [operation, setOperation] = useState(null)
-    console.log("operation", operation)
     const [result, setResult] = useState(null)
-    console.log("result", result)
 
     const handlersRef = useRef({});
 
