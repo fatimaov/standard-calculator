@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 
 import Addition from "./Addition"
 import Clear from "./Clear"
@@ -24,6 +24,8 @@ function App() {
     console.log("operation", operation)
     const [result, setResult] = useState(null)
     console.log("result", result)
+
+    const handlersRef = useRef({});
 
     // Number
     function handleNumberClick(digit) {
@@ -118,38 +120,52 @@ function App() {
     }
 
     useEffect(() => {
-        const handleKeyDown = (e) => {
-            console.log("use effect", currentValue)
+        handlersRef.current = {
+            handleNumberClick,
+            handleAdditionClick,
+            handleSubtractionClick,
+            handleMultiplicationClick,
+            handleDivisionClick,
+            handleModulusClick,
+            handleDecimalClick,
+            handleEqualsClick,
+            handleClearAllClick,
+            handleClearClick,
+        }
+    })
+
+    useEffect(() => {
+        function handleKeyDown(e) {
             if (e.key.match(/\d/)) {
-                handleNumberClick(e.key);
+                handlersRef.current.handleNumberClick(e.key);
             }
             switch (e.key) {
                 case '+':
-                    handleAdditionClick();
+                    handlersRef.current.handleAdditionClick();
                     break;
                 case '-':
-                    handleSubtractionClick();
+                    handlersRef.current.handleSubtractionClick();
                     break;
                 case '/':
-                    handleDivisionClick();
+                    handlersRef.current.handleDivisionClick();
                     break;
                 case '*':
-                    handleMultiplicationClick();
+                    handlersRef.current.handleMultiplicationClick();
                     break;
                 case '%':
-                    handleModulusClick();
+                    handlersRef.current.handleModulusClick();
                     break;
                 case '.':
-                    handleDecimalClick();
+                    handlersRef.current.handleDecimalClick();
                     break;
                 case 'Enter':
-                    handleEqualsClick();
+                    handlersRef.current.handleEqualsClick();
                     break;
                 case 'Backspace':
-                    handleClearClick();
+                    handlersRef.current.handleClearClick();
                     break;
                 case 'Escape':
-                    handleClearAllClick();
+                    handlersRef.current.handleClearAllClick();
                     break;
             }
         }
@@ -157,7 +173,7 @@ function App() {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener("keydown", handleKeyDown);
 
-    }, [currentValue, previousValue, operation, result])
+    }, [])
 
 
     return (
