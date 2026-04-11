@@ -28,7 +28,7 @@ function App() {
         if (result !== 0) {
             setResult(() => null)
         }
-        if (currentValue.toString().length >= 10) {
+        if (currentValue.toString().length === 10) {
             return;
         }
         setCurrentValue(prev => typeof digit !== 'string' ? Number(prev + digit.target.value) : Number(prev + digit))
@@ -143,6 +143,9 @@ function App() {
                     handlersRef.current.handleSubtractionClick();
                     break;
                 case '/':
+                    handlersRef.current.handleDivisionClick();
+                    break;
+                case ':':
                     handlersRef.current.handleDivisionClick();
                     break;
                 case '*':

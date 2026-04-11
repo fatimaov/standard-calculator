@@ -15,7 +15,7 @@ function Display({ currentValue, result }) {
         <>
             <div className="col p-0">
                 <p className="bg-white text-end p-3 m-0">{currentValue ?  formattedCurrentValue : 0}</p>
-                <p className="bg-white text-end p-3 m-0">total: {result ? formatter.format(result) : 0}</p>
+                <p className="bg-white text-end p-3 m-0">{result ? formatter.format(result) : 0}</p>
             </div>
         </>
     )
