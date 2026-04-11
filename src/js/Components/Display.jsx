@@ -4,7 +4,10 @@ function Display({ currentValue, result }) {
     
     let formattedCurrentValue ;
 
-    if (typeof currentValue === 'string') {
+    if (typeof currentValue === 'string' && /^\d+\.0$/.test(currentValue)) {
+        const integerDigits = currentValue.split('').filter((_, i, arr) => i < arr.length - 1);
+        formattedCurrentValue = formatter.format(Number(integerDigits.join(''))) + '.0';
+    } else if (typeof currentValue === 'string') {
         const integerDigits = currentValue.split('').filter((_, i, arr) => i < arr.length - 1);
         formattedCurrentValue = formatter.format(Number(integerDigits.join(''))) + '.';
     } else {

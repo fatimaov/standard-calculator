@@ -25,13 +25,20 @@ function App() {
 
     // Number
     function handleNumberClick(digit) {
+        const digitValue = (typeof digit === "string") ? digit : digit.target.value;
         if (result !== 0) {
             setResult(() => null)
         }
         if (currentValue.toString().length === 10) {
             return;
         }
-        setCurrentValue(prev => typeof digit !== 'string' ? Number(prev + digit.target.value) : Number(prev + digit))
+        function decimalZero (currValue, digitValue) {
+            if (digitValue === "0" && /^\d+\.$/.test(currValue) ) {
+                return currValue + digitValue
+            }
+            return Number(currValue + digitValue)
+        }
+        setCurrentValue(prev => typeof prev !== 'string' ? Number(prev + digitValue) : decimalZero(prev, digitValue))
     }
 
     // Decimal
