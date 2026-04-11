@@ -32,13 +32,13 @@ function App() {
         if (currentValue.toString().length === 10) {
             return;
         }
-        function preserveTrailingDecimalZero (currValue, digitValue) {
-            if (digitValue === "0" && /^\d+\.$/.test(currValue) ) {
+        function preserveDecimalInput(currValue, digitValue) {
+            if (currValue.includes('.')) {
                 return currValue + digitValue;
             }
             return Number(currValue + digitValue);
         }
-        setCurrentValue(prev => typeof prev !== 'string' ? Number(prev + digitValue) : preserveTrailingDecimalZero(prev, digitValue))
+        setCurrentValue(prev => typeof prev !== 'string' ? Number(prev + digitValue) : preserveDecimalInput(prev, digitValue))
     }
 
     // Decimal

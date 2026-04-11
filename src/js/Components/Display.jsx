@@ -4,12 +4,11 @@ function Display({ currentValue, result }) {
     
     let formattedCurrentValue ;
 
-    if (typeof currentValue === 'string' && /^\d+\.0$/.test(currentValue)) {
-        const integerDigits = currentValue.split('').filter((_, i, arr) => i < arr.length - 1);
-        formattedCurrentValue = formatter.format(Number(integerDigits.join(''))) + '.0';
-    } else if (typeof currentValue === 'string') {
-        const integerDigits = currentValue.split('').filter((_, i, arr) => i < arr.length - 1);
-        formattedCurrentValue = formatter.format(Number(integerDigits.join(''))) + '.';
+    if (typeof currentValue === 'string') {
+        const decimalIndex = currentValue.indexOf('.');
+        const integerDigits = currentValue.slice(0, decimalIndex);
+        const decimalPart = currentValue.slice(decimalIndex + 1);
+        formattedCurrentValue = formatter.format(Number(integerDigits)) + '.' + decimalPart;
     } else {
         formattedCurrentValue = formatter.format(currentValue);
     }
