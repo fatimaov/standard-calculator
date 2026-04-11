@@ -27,18 +27,18 @@ function App() {
     function handleNumberClick(digit) {
         const digitValue = (typeof digit === "string") ? digit : digit.target.value;
         if (result !== 0) {
-            setResult(() => null)
+            setResult(() => null);
         }
         if (currentValue.toString().length === 10) {
             return;
         }
-        function decimalZero (currValue, digitValue) {
+        function preserveTrailingDecimalZero (currValue, digitValue) {
             if (digitValue === "0" && /^\d+\.$/.test(currValue) ) {
-                return currValue + digitValue
+                return currValue + digitValue;
             }
-            return Number(currValue + digitValue)
+            return Number(currValue + digitValue);
         }
-        setCurrentValue(prev => typeof prev !== 'string' ? Number(prev + digitValue) : decimalZero(prev, digitValue))
+        setCurrentValue(prev => typeof prev !== 'string' ? Number(prev + digitValue) : preserveTrailingDecimalZero(prev, digitValue))
     }
 
     // Decimal
