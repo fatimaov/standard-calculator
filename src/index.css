@@ -1,0 +1,114 @@
+:root {
+    --bg-main: #0b0a10;
+    --bg-panel: rgba(22, 18, 30, 0.9);
+    --bg-display: rgba(14, 12, 19, 0.96);
+    --bg-button: #17131f;
+    --bg-button-muted: #221a2d;
+    --text-main: #f5f2fb;
+    --text-soft: #a89db8;
+    --accent: #d946ef;
+    --accent-strong: #f472b6;
+    --border-soft: rgba(255, 255, 255, 0.06);
+}
+
+body {
+    min-width: 320px;
+    margin: 0;
+    background:
+        radial-gradient(circle at top, rgba(217, 70, 239, 0.18), transparent 30%),
+        linear-gradient(180deg, #12101a 0%, var(--bg-main) 100%);
+    color: var(--text-main);
+    font-family: "Segoe UI", sans-serif;
+}
+
+#root {
+    min-height: 100vh;
+}
+
+.calculator-shell {
+    max-width: 420px;
+}
+
+.calculator-card {
+    background: var(--bg-panel);
+    border: 1px solid var(--border-soft);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(16px);
+}
+
+.calculator-grid {
+    display: grid;
+    gap: 0.5rem;
+}
+
+.display-panel {
+    background: var(--bg-display);
+    border: 1px solid var(--border-soft);
+    border-radius: 1.2rem;
+}
+
+.display-label {
+    color: var(--text-soft);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.display-result {
+    color: var(--text-soft);
+    font-size: 1rem;
+    min-height: 1.5rem;
+}
+
+.display-value {
+    color: var(--text-main);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    line-height: 1.1;
+    word-break: break-all;
+}
+
+.calc-btn {
+    min-height: 4rem;
+    border: 1px solid transparent;
+    border-radius: 1rem;
+    color: var(--text-main);
+    font-size: 1.1rem;
+    font-weight: 600;
+    transition: transform 0.15s ease, border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.calc-btn:hover,
+.calc-btn:focus-visible {
+    color: var(--text-main);
+    transform: translateY(-1px);
+    border-color: rgba(244, 114, 182, 0.35);
+    box-shadow: 0 0 0 0.2rem rgba(217, 70, 239, 0.12);
+}
+
+.calc-btn-base {
+    background-color: var(--bg-button);
+}
+
+.calc-btn-base:hover,
+.calc-btn-base:focus-visible {
+    background-color: #20192b;
+}
+
+.calc-btn-muted {
+    background-color: var(--bg-button-muted);
+}
+
+.calc-btn-muted:hover,
+.calc-btn-muted:focus-visible {
+    background-color: #2b2138;
+}
+
+.calc-btn-accent {
+    background: linear-gradient(180deg, var(--accent-strong) 0%, var(--accent) 100%);
+}
+
+.calc-btn-accent:hover,
+.calc-btn-accent:focus-visible {
+    background: linear-gradient(180deg, #fb7ec8 0%, #e34af5 100%);
+}

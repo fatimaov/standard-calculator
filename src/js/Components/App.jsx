@@ -184,37 +184,41 @@ function App() {
 
     return (
         <>
-            <div className="container bg-secondary p-5">
-                <div id="display" className="row ">
+            <div className="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+                <div className="calculator-shell w-100">
+                    <div className="calculator-card mx-auto p-3 p-md-4 shadow-lg">
+                        <div id="display" className="row mb-3">
                     <Display currentValue={currentValue} result={result} />
                 </div>
-                <div>
-                    <div className="row row-cols-4 text-center mt-2">
-                        <ClearAll onClearAllClick={handleClearAllClick} />
-                        <Division onDivisionClick={handleDivisionClick} />
-                        <Multiplication onMultiplicacionClick={handleMultiplicationClick} />
-                        <Clear onClearClick={handleClearClick} />
-                    </div>
-                    <div className="row row-cols-4 text-center mt-2">
-                        {[7, 8, 9].map((digit) => <DigitButton key={digit} value={digit} onNumberClick={handleNumberClick} />)}
-                        <Subtraction onSubtractionClick={handleSubtractionClick} />
-                    </div>
-                    <div className="row row-cols-4 text-center mt-2">
-                        {[4, 5, 6].map((digit) => <DigitButton key={digit} value={digit} onNumberClick={handleNumberClick} />)}
-                        <Addition onAdditionClick={handleAdditionClick} />
-                    </div>
-                    <div className="row row-cols-2 text-center mt-2">
-                        <div className="col-9">
-                            <div className="row row-cols-3">
-                                {[1, 2, 3].map((digit) => <DigitButton key={digit} value={digit} onNumberClick={handleNumberClick} />)}
+                        <div className="calculator-grid">
+                            <div className="row row-cols-4 g-2 text-center">
+                                <ClearAll onClearAllClick={handleClearAllClick} />
+                                <Division onDivisionClick={handleDivisionClick} />
+                                <Multiplication onMultiplicacionClick={handleMultiplicationClick} />
+                                <Clear onClearClick={handleClearClick} />
                             </div>
-                            <div className="row row-cols-3">
-                                <Modulus onModulusClick={handleModulusClick} />
-                                <DigitButton value={0} onNumberClick={handleNumberClick} />
-                                <DecimalPoint onDecimalClick={handleDecimalClick} />
+                            <div className="row row-cols-4 g-2 text-center mt-0">
+                                {[7, 8, 9].map((digit) => <DigitButton key={digit} value={digit} onNumberClick={handleNumberClick} />)}
+                                <Subtraction onSubtractionClick={handleSubtractionClick} />
+                            </div>
+                            <div className="row row-cols-4 g-2 text-center mt-0">
+                                {[4, 5, 6].map((digit) => <DigitButton key={digit} value={digit} onNumberClick={handleNumberClick} />)}
+                                <Addition onAdditionClick={handleAdditionClick} />
+                            </div>
+                            <div className="row row-cols-2 g-2 text-center mt-0">
+                                <div className="col-9">
+                                    <div className="row row-cols-3 g-2">
+                                        {[1, 2, 3].map((digit) => <DigitButton key={digit} value={digit} onNumberClick={handleNumberClick} />)}
+                                    </div>
+                                    <div className="row row-cols-3 g-2 mt-0">
+                                        <Modulus onModulusClick={handleModulusClick} />
+                                        <DigitButton value={0} onNumberClick={handleNumberClick} />
+                                        <DecimalPoint onDecimalClick={handleDecimalClick} />
+                                    </div>
+                                </div>
+                                <Equals onEqualsClick={handleEqualsClick} />
                             </div>
                         </div>
-                        <Equals onEqualsClick={handleEqualsClick} />
                     </div>
                 </div>
             </div>

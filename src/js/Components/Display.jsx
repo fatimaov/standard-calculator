@@ -17,8 +17,11 @@ function Display({ currentValue, result }) {
     return (
         <>
             <div className="col p-0">
-                <p className="bg-white text-end p-3 m-0">{currentValue ?  formattedCurrentValue : 0}</p>
-                <p className="bg-white text-end p-3 m-0">{result ? formatter.format(result) : 0}</p>
+                <div className="display-panel text-end p-3 p-md-4">
+                    <p className="display-label mb-2">Result</p>
+                    <p className="display-result mb-2">{result ? formatter.format(result) : 0}</p>
+                    <p className="display-value mb-0">{currentValue ?  formattedCurrentValue : 0}</p>
+                </div>
             </div>
         </>
     )
